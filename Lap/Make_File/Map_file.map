@@ -1,0 +1,117 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+Mem              0x00000000         0x04000000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x00010000                . = 0x10000
+
+.startup        0x00010000       0x10
+ startup.o(.text)
+ .text          0x00010000       0x10 startup.o
+                0x00010000                reset
+
+.text           0x00010010       0xcc
+ *(.text)
+ .text          0x00010010       0x28 app.o
+                0x00010010                main
+ .text          0x00010038       0x60 urt.o
+                0x00010038                Urt_Serial_Transfer_String
+ *(.rodata)
+ .rodata        0x00010098       0x40 app.o
+ .rodata        0x000100d8        0x4 urt.o
+                0x000100d8                URT0DR
+
+.glue_7         0x000100dc        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x000100dc        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x000100dc        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x000100dc        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x000100dc        0x0
+ .iplt          0x00000000        0x0 startup.o
+
+.rel.dyn        0x000100dc        0x0
+ .rel.iplt      0x00000000        0x0 startup.o
+
+.data           0x000100dc        0x4
+ *(.data)
+ .data          0x000100dc        0x0 startup.o
+ .data          0x000100dc        0x4 app.o
+                0x000100dc                Ptr_Fixed_String
+ .data          0x000100e0        0x0 urt.o
+
+.igot.plt       0x000100e0        0x0
+ .igot.plt      0x00000000        0x0 startup.o
+
+.bss            0x000100e0        0x0
+ *(.bss)
+ .bss           0x000100e0        0x0 startup.o
+ .bss           0x000100e0        0x0 app.o
+ .bss           0x000100e0        0x0 urt.o
+ *(COMMON)
+                0x000110e0                . = (. + 0x1000)
+                0x000110e0                stack_top = .
+LOAD startup.o
+LOAD app.o
+LOAD urt.o
+OUTPUT(Simple_Urt_Serial_Data_Transfer-String.elf elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x2e
+ .ARM.attributes
+                0x00000000       0x22 startup.o
+ .ARM.attributes
+                0x00000022       0x32 app.o
+ .ARM.attributes
+                0x00000054       0x32 urt.o
+
+.comment        0x00000000       0x11
+ .comment       0x00000000       0x11 app.o
+                                 0x12 (size before relaxing)
+ .comment       0x00000000       0x12 urt.o
+
+.debug_line     0x00000000       0xc3
+ .debug_line    0x00000000       0x3a startup.o
+ .debug_line    0x0000003a       0x41 app.o
+ .debug_line    0x0000007b       0x48 urt.o
+
+.debug_info     0x00000000      0x1bd
+ .debug_info    0x00000000       0x83 startup.o
+ .debug_info    0x00000083       0x76 app.o
+ .debug_info    0x000000f9       0xc4 urt.o
+
+.debug_abbrev   0x00000000      0x11d
+ .debug_abbrev  0x00000000       0x14 startup.o
+ .debug_abbrev  0x00000014       0x72 app.o
+ .debug_abbrev  0x00000086       0x97 urt.o
+
+.debug_aranges  0x00000000       0x60
+ .debug_aranges
+                0x00000000       0x20 startup.o
+ .debug_aranges
+                0x00000020       0x20 app.o
+ .debug_aranges
+                0x00000040       0x20 urt.o
+
+.debug_loc      0x00000000       0x58
+ .debug_loc     0x00000000       0x2c app.o
+ .debug_loc     0x0000002c       0x2c urt.o
+
+.debug_str      0x00000000       0xed
+ .debug_str     0x00000000       0x90 app.o
+ .debug_str     0x00000090       0x5d urt.o
+                                 0xd1 (size before relaxing)
+
+.debug_frame    0x00000000       0x54
+ .debug_frame   0x00000000       0x2c app.o
+ .debug_frame   0x0000002c       0x28 urt.o

@@ -1,0 +1,24 @@
+/*
+ *  Topic   :                                    Lesson-3 Proteus Lap P3: Toggle Led  
+ *  Author  :                                    abdelfattahzakariaelbadry@gmail.com    
+/*
+
+/************************************************************************************************************************/
+
+ * The differrent symbols in toggle led lap with its corresbonding addressable value: 
+
+$ arm-none-eabi-nm.exe STM32_Toggle_Led_Native_Startup_Linker_Cortex_m3.elf
+080000e0 W Bus_Handler
+080000e0 T Default_Handler
+080000e0 W H_Fault_Handler
+08000080 T main
+080000e0 W MM_Fault_Handler
+080000e0 W NMI_Handler
+080000ec D R_ODR
+080000d4 T Rest_Handler
+0800001c T Toggle_GPIO_ODR_PIN13
+080000e0 W Usage_Fault_Handler
+08000000 T vectors
+
+
+
